@@ -52,7 +52,7 @@ public class Main {
     private static void play(LinkedList<Song> playList) {
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
-        boolean forward = true;
+        boolean wasPreviousDirectionForward = true;
         ListIterator<Song> listIterator = playList.listIterator();
         if(playList.size() == 0) {
             System.out.println("No songs in playlist");
@@ -72,52 +72,53 @@ public class Main {
                     quit = true;
                     break;
                 case 1:
-                    if(!forward) {
+                    if(!wasPreviousDirectionForward) {
                         if(listIterator.hasNext()) {
                             listIterator.next();
                         }
-                        forward = true;
+                        wasPreviousDirectionForward = true;
                     }
                     if(listIterator.hasNext()) {
                         System.out.println("Now playing " + listIterator.next().toString());
                     } else {
                         System.out.println("We have reached the end of the playlist");
-                        forward = false;
+                        wasPreviousDirectionForward = false;
                     }
                     break;
 
                 case 2:
-                    if(forward) {
+                    if(wasPreviousDirectionForward) {
                         if(listIterator.hasPrevious()) {
                             listIterator.previous();
                         }
-                        forward = false;
+                        wasPreviousDirectionForward = false;
                     }
                     if(listIterator.hasPrevious()) {
                         System.out.println("Now playing " + listIterator.previous().toString());
                     } else {
                         System.out.println("We are at the start of the playlist");
-                        forward = true;
+                        wasPreviousDirectionForward = true;
                     }
                     break;
                 case 3:
-                    if(forward) {
+                    if(wasPreviousDirectionForward) {
                         if(listIterator.hasPrevious()) {
                             System.out.println("Now replaying " + listIterator.previous().toString());
-                            forward = false;
+                            wasPreviousDirectionForward = false;
                         } else {
                             System.out.println("We are at the start of the list");
                         }
                     } else {
                         if(listIterator.hasNext()) {
                             System.out.println("Now replaying " + listIterator.next().toString());
-                            forward = true;
+                            wasPreviousDirectionForward = true;
                         } else {
                             System.out.println("We have reached the end of the list");
                         }
                     }
                     break;
                 case 4:
+                    System.err.println("Your current playlist");
                     printList(playList);
                     break;
                 case 5:

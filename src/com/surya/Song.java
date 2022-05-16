@@ -1,5 +1,6 @@
 package com.surya;
 
+
 public class Song {
     private final String title;
     private final double duration;
